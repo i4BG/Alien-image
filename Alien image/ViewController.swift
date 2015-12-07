@@ -10,9 +10,56 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var counter = 1
+
+    var timer = NSTimer()
+    
+    var isAnimation = true
+    
+    @IBOutlet var danceImage: UIImageView!
+    
+    @IBAction func actionButton(sender: AnyObject) {
+        
+        
+        if isAnimation == true {
+    
+            timer.invalidate()
+            
+            isAnimation = false
+      
+        } else {
+            
+            timer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: Selector("doAnimation"), userInfo: nil, repeats: true)
+            
+            isAnimation = true
+            
+        }
+    
+        danceImage.image = UIImage(named: "frame\(counter).png")
+            
+        }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(0.3, target: self, selector: Selector("doAnimation"), userInfo: nil, repeats: true)
+        
+    }
+    
+    func doAnimation() {
+        
+        if counter == 9 {
+            
+            counter = 1
+            
+        } else {
+            
+            counter++
+            
+        }
+        
+        danceImage.image = UIImage(named: "frame\(counter).png")
+        
     }
 
     override func didReceiveMemoryWarning() {
